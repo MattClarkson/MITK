@@ -17,6 +17,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <mitkTestingMacros.h>
 #include <mitkFileReaderRegistry.h>
 #include <mitkMimeType.h>
+#include <usModuleInitialization.h>
 
 /**
  * @brief Tests instantiating an IFileReader for .trk format.
@@ -30,8 +31,9 @@ int mitkFibreBundleVtkReaderTest(int argc , char**)
   // The test, try to read a file of mime-type/file extension trk.
   mitk::FileReaderRegistry readerRegistry;
   std::vector<mitk::IFileReader*> readers = readerRegistry.GetReaders(mitk::FileReaderRegistry::GetMimeTypeForFile("trk"));
-  MITK_TEST_CONDITION_REQUIRED(readers.size() == 1, "Testing for 1 registered readers")
+  MITK_TEST_CONDITION_REQUIRED(readers.size() >= 1, "Testing for >=1 registered readers, but found " << readers.size())
 
   // always end with this!
   MITK_TEST_END();
 }
+US_INITIALIZE_MODULE
